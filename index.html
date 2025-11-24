@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KPMPNGN — Pampanga Guide</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* 3 dots menu styling */
+    .menu-btn {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 22px;
+      cursor: pointer;
+      position: absolute;
+      right: 16px;
+      top: 18px;
+    }
+
+    /* Mission, Vision, Brand Story & Contact modal */
+    #missionModal .modal-card {
+      background: rgba(15, 15, 15, 0.95);
+      border: 1px solid #222;
+      color: var(--accent);
+      text-align: left;
+      max-width: 340px;
+      padding: 20px;
+    }
+    #missionModal h2 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+    #missionModal p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4em;
+      margin-bottom: 10px;
+    }
+    #missionModal hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 15px 0;
+    }
+    #missionModal a {
+      text-decoration: none;
+      color: var(--accent);
+    }
+    #missionModal a:hover {
+      text-decoration: underline;
+    }
+
+    /* ⭐ FUN FACT BOX STYLE */
+    .fun-fact-box {
+      background: #141414;
+      border: 1px solid #222;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 20px 0;
+      color: #eaeaea;
+      box-shadow: 0 0 8px #000;
+    }
+
+    .fun-fact-box h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .fun-fact-box p {
+      margin: 0;
+      font-size: 14px;
+      color: #cfcfcf;
+    }
+
+    /* ⭐ NEW: BIG NEWS CARD STYLE */
+    /* This overrides the small list style */
+    .big-news-card {
+      display: flex;
+      flex-direction: column; /* Forces vertical stacking */
+      width: 100%;
+      background: var(--card);
+      border: 1px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      cursor: pointer;
+    }
+
+    .big-news-thumb {
+      width: 100%;
+      height: 200px; /* Big Height for the image */
+      background-size: cover;
+      background-position: center;
+      display: block;
+    }
+
+    .big-news-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .big-news-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .big-news-desc {
+      font-size: 14px;
+      color: #aaa;
+      margin: 0;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-frame">
+      
+      <div class="login-header">
+        <p class="greeting">KUMUSTA CABALEN!</p>
+        <h1 class="app-title">KPMPNGN</h1>
+      </div>
+  
+      <div class="login-icon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Parol_lantern.svg/1200px-Parol_lantern.svg.png" alt="Parol Icon">
+      </div>
+  
+      <form id="loginForm" autocomplete="off">
+        <h3 style="margin:0 0 15px 0; font-size:14px; color:var(--accent);">LOG IN</h3>
+        <div class="input-group">
+          <label>USERNAME</label>
+          <input type="text" id="loginUser" placeholder="Enter username" required>
+        </div>
+  
+        <div class="input-group">
+          <label>PASSWORD</label>
+          <input type="password" id="loginPass" placeholder="••••••••" required>
+        </div>
+  
+        <div class="button-row">
+          <button type="submit" class="btn-outline">LOGIN</button>
+          <button type="button" class="btn-outline" onclick="switchForm('register')">SIGN UP</button>
+        </div>
+  
+        <a href="#" class="forgot-link" onclick="switchForm('forgot')">FORGET PASSWORD?</a>
+      </form>
+
+      <form id="registerForm" autocomplete="off" style="display:none;">
+        <h3 style="margin:0 0 15px 0; font-size:14px; color:var(--accent);">CREATE ACCOUNT</h3>
+        <div class="input-group">
+          <label>NEW USERNAME</label>
+          <input type="text" id="regUser" placeholder="Choose username" required>
+        </div>
+  
+        <div class="input-group">
+          <label>NEW PASSWORD</label>
+          <input type="password" id="regPass" placeholder="••••••••" required>
+        </div>
+
+        <div class="button-row">
+          <button type="submit" class="btn-outline">REGISTER</button>
+          <button type="button" class="btn-outline" onclick="switchForm('login')">BACK</button>
+        </div>
+      </form>
+
+      <form id="forgotForm" autocomplete="off" style="display:none;">
+        <h3 style="margin:0 0 15px 0; font-size:14px; color:var(--accent);">RECOVER ACCOUNT</h3>
+        <p style="font-size:10px; margin-bottom:15px; color:#ccc;">Enter your username to retrieve your password.</p>
+        
+        <div class="input-group">
+          <label>YOUR USERNAME</label>
+          <input type="text" id="forgotUser" placeholder="Enter username" required>
+        </div>
+  
+        <div class="button-row">
+          <button type="submit" class="btn-outline">GET PASSWORD</button>
+          <button type="button" class="btn-outline" onclick="switchForm('login')">BACK</button>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+
+  <div class="phone-shell app-hidden" role="application" aria-label="KPMPNGN app">
+    <header class="topbar">
+      <div class="brand-wrap" style="position: relative; width:100%;">
+        <img src="Parol.png" alt="KPMPNGN logo" class="app-logo"
+          style="max-width:48px; display:inline-block; vertical-align:middle; margin-right:8px; filter:invert(1);">
+        <div style="display:inline-block; vertical-align:middle;">
+          <div class="brand">KPMPNGN</div>
+          <div class="subtitle">Kapampangan Travel Buddy</div>
+        </div>
+
+        <button id="menuBtn" class="menu-btn" aria-label="App menu">⋮</button>
+      </div>
+    </header>
+
+    <main class="screen">
+
+      <section id="home" class="page active">
+        <h1>Welcome</h1>
+        <p class="muted">Latest updates and happenings in Pampanga.</p>
+
+        <div class="fun-fact-box">
+          <h3>Fun Fact</h3>
+          <p id="funFactText">Loading fun fact...</p>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <h2 style="border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 15px;">Latest News</h2>
+          <div id="news-list"></div>
+        </div>
+      </section>
+
+      <section id="municipalities" class="page">
+        <h2>Municipalities & Cities</h2>
+        <p class="muted">Tap an item to open image, history and map.</p>
+        <div id="muni-list" class="cards"></div>
+      </section>
+
+      <section id="foods" class="page">
+        <h2>Kapampangan Foods</h2>
+        <div class="filter-container">
+          <select id="food-city-filter" class="city-filter">
+            <option value="all">All Cities</option>
+          </select>
+        </div>
+        <div id="foods-list" class="big-card-list"></div>
+      </section>
+
+      <section id="lodging" class="page">
+        <h2>Lodging & Hotels</h2>
+        <div class="filter-container">
+          <select id="lodging-city-filter" class="city-filter">
+            <option value="all">All Cities</option>
+          </select>
+        </div>
+        <div id="lodging-list" class="big-card-list"></div>
+      </section>
+
+      <section id="routes" class="page">
+    <h2>Routes & Fares</h2>
+    <p class="muted">Common jeepney routes and transportation guides.</p>
+
+    <div class="filter-container">
+      <select id="routes-city-filter" class="city-filter">
+        <option value="all">All Areas</option>
+      </select>
+    </div>
+
+    <div id="routes-list" class="big-card-list"></div>
+</section>
+
+      <section id="map" class="page">
+        <h2>Map — Pampanga</h2>
+        <div class="map-box">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=120.2400%2C14.7380%2C120.9230%2C15.3700&layer=mapnik"
+            loading="lazy"
+            referrerpolicy="no-referrer"></iframe>
+        </div>
+      </section>
+
+     <section id="attractions" class="page">
+    <h2>Tourist Attractions</h2>
+    <p class="muted">Explore Pampanga's most visited tourist spots.</p>
+
+    <div class="filter-container">
+      <select id="attractions-city-filter" class="city-filter">
+        <option value="all">All Cities</option>
+      </select>
+    </div>
+
+    <div id="attractions-list" class="big-card-list"></div>
+</section>
+
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-page="home">🏠 Home</button>
+      <button class="nav-btn" data-page="municipalities">🏘️ LGUs</button>
+      <button class="nav-btn" data-page="foods">🍴 Food</button>
+      <button class="nav-btn" data-page="lodging">🏨 Lodging</button>
+      <button class="nav-btn" data-page="routes">🛺 Routes</button>
+      <button class="nav-btn" data-page="map">🗺️ Map</button>
+      <button class="nav-btn" data-page="attractions">🎡 Attractions</button>
+    </nav>
+  </div>
+
+  <div id="detailModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <button id="closeModal" class="close">✕</button>
+      <img id="modalImg" src="" alt="">
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc" class="muted"></p>
+      <div class="modal-map">
+        <iframe id="modalMap" src="" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div id="missionModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <button id="closeMission" class="close">✕</button>
+      <h2 style="margin-top:0;">Mission & Vision</h2>
+      <p><strong>Mission:</strong> Matenakan's mission is to create reliable and meaningful solutions that people can trust, rooted in the ingenuity of Kapampangan craftsmanship and innovation. That makes technology and progress accessible and relevant, while supporting local enterprises, empowering communities, and promoting sustainable growth. By combining tradition with innovation, the company strives to uplift lives, preserve cultural identity, and shape a better tomorrow for Pampanga and beyond.</p>
+      <p><strong>Vision:</strong>A leading Kapampangan company that champions innovation while honoring rich cultural heritage, aims to improve everyday living, strengthen local communities, and open opportunities that showcase Pampanga's creativity and resilience.</p>
+      <hr>
+      <h2>Brand Story</h2>
+      <p>KPMPNGN is a mobile application that aims to promote Pampanga as a premier cultural and tourism destination in the Philippines. The app provides comprehensive information on historical sites, local cuisines, festivals, accommodations, and hidden travel spots. Equipped with interactive maps, where-to go spots, and user-friendly navigation, KPMPNGN enhances the travel experience for both local and international tourists in Pampanga. Beyond convenience, the application serves as a digital platform to preserve and promote Kapampangan heritage, artistry, and hospitality, supporting sustainable tourism and local economic growth. The Kapampangan App (KPMPNGN) is a comprehensive software application that celebrates the rich culture and heritage of Pampanga, Philippines. The app is designed to cater to the needs of both locals and tourists, providing a wealth of information on the region's location, history & Culture, and attractions</p>
+      <hr>
+      <h2>Contact Us</h2>
+      <p><strong>Company Name:</strong>Metanakan Corporation</p>
+      <p><strong>Email:</strong> <a href="mailto:metanakankapampangancompany@gmail.com">metanakankapampangancompany@gmail.com</a></p>
+      <p><strong>Phone:</strong> <a href="tel:09945509782">NO. 0994-550-9782</a></p>
+      <p><strong>Address:</strong> 20-11 Ohio Street, Villasol Subdivision, Brgy. Anunas, Angeles City</p>
+      <p><strong>Facebook:</strong> <a href="https://facebook.com/kpmpngn" target="_blank">metanakankapampangan</a></p>
+      <hr>
+      <h3>Angeles City Emergency Hotlines</h3>
+      <p><strong>Police Office:</strong> 0907-742-8000 / 0908-377-0144</p>
+      <p><strong>Disaster Risk Reduction:</strong> 0917-851-9581 / 0998-842-7746</p>
+      <p><strong>Bureau of Fire:</strong> 0995-822-3620 / 0925-451-3550</p>
+      <p><strong>Environmental Management:</strong> 0950-312-1699</p>
+      <p><strong>Social Welfare:</strong> 0966-350-7393</p>
+      <p><strong>Dengue Task Force:</strong> 0933-928-8286</p>
+    </div>
+  </div>
+
+  <script>
+    // =======================================================
+    //  AUTHENTICATION LOGIC
+    // =======================================================
+    
+    function switchForm(type) {
+      const loginForm = document.getElementById('loginForm');
+      const regForm   = document.getElementById('registerForm');
+      const forgotForm= document.getElementById('forgotForm');
+
+      loginForm.style.display = 'none';
+      regForm.style.display   = 'none';
+      forgotForm.style.display= 'none';
+
+      if(type === 'login') loginForm.style.display = 'block';
+      if(type === 'register') regForm.style.display = 'block';
+      if(type === 'forgot') forgotForm.style.display = 'block';
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      sessionStorage.clear();
+      
+      const overlay = document.getElementById('loginOverlay');
+      const phoneShell = document.querySelector('.phone-shell');
+
+      if(overlay) overlay.style.display = 'flex';
+      if(phoneShell) phoneShell.classList.add('app-hidden');
+
+      // --- REGISTER ---
+      const regForm = document.getElementById('registerForm');
+      regForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('regUser').value.trim();
+        const pass = document.getElementById('regPass').value.trim();
+
+        if(user === "" || pass === "") {
+          alert("Please fill in all fields.");
+          return;
+        }
+        if(localStorage.getItem('user_' + user)) {
+          alert("Username already taken!");
+          return;
+        }
+        localStorage.setItem('user_' + user, pass);
+        alert("Registration Successful! Please Log In.");
+        document.getElementById('regUser').value = "";
+        document.getElementById('regPass').value = "";
+        switchForm('login');
+      });
+
+      // --- LOGIN ---
+      const loginForm = document.getElementById('loginForm');
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('loginUser').value.trim();
+        const pass = document.getElementById('loginPass').value.trim();
+        const storedPass = localStorage.getItem('user_' + user);
+
+        if(storedPass === pass) {
+          overlay.style.display = 'none';
+          phoneShell.classList.remove('app-hidden');
+          alert("Welcome back, " + user + "!");
+        } else {
+          alert("Invalid Username or Password.");
+        }
+      });
+
+      // --- FORGOT PASSWORD ---
+      const forgotForm = document.getElementById('forgotForm');
+      forgotForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('forgotUser').value.trim();
+        const storedPass = localStorage.getItem('user_' + user);
+
+        if(storedPass) {
+          alert("Your password is: " + storedPass);
+          switchForm('login');
+        } else {
+          alert("Username not found.");
+        }
+      });
+
+      // MISSION MODAL
+      const menuBtn = document.getElementById('menuBtn');
+      const missionModal = document.getElementById('missionModal');
+      const closeMission = document.getElementById('closeMission');
+
+      menuBtn.addEventListener('click', () => missionModal.classList.add('open'));
+      closeMission.addEventListener('click', () => missionModal.classList.remove('open'));
+      missionModal.addEventListener('click', (e) => {
+        if (e.target === missionModal) missionModal.classList.remove('open');
+      });
+
+      // FUN FACT
+      const funFacts = [
+        "For two years, Pampanga was once the capital of the Philippines. (1762-1764)",
+        "Sisig originated in Angeles City, Pampanga.",
+        "San Fernando hosts the Giant Lantern Festival every December.",
+        "Mt. Pinatubo's 1991 eruption cooled global temperatures.",
+        "Pampanga was the first Spanish province created in Luzon (1571).",
+        "The word 'Kapampangan' comes from 'pampang' meaning riverbank.",
+        "Clark was once one of the largest US Air Bases in the world."
+      ];
+      function showRandomFunFact() {
+        const rand = Math.floor(Math.random() * funFacts.length);
+        const element = document.getElementById("funFactText");
+        if (element) element.textContent = funFacts[rand];
+      }
+      showRandomFunFact();
+    });
+  </script>
+
+  <script src="script.js"></script>
+
+  <script>
+    // =======================================================
+    //  FORCE "BIG PICTURE" LAYOUT FOR NEWS
+    // =======================================================
+    // We use window.onload to ensure we override any other script execution
+    window.onload = function() {
+      
+      // 1. Target the news container
+      const newsContainer = document.getElementById("news-list");
+      
+      // 2. Verify if we have news data
+      if(typeof news !== 'undefined' && newsContainer) {
+        
+        // 3. Clear whatever script.js put there
+        newsContainer.innerHTML = "";
+        
+        // 4. Render the BIG CARDS (Image Top, Text Bottom)
+        news.forEach(item => {
+          const card = document.createElement("div");
+          card.className = "big-news-card"; // Uses the new CSS class
+          
+          card.innerHTML = `
+            <div class="big-news-thumb" style="background-image:url('${item.image}')"></div>
+            <div class="big-news-body">
+              <h3 class="big-news-title">${item.name}</h3>
+              <p class="big-news-desc">${item.description}</p>
+            </div>
+          `;
+          
+          // Add Click Event
+          card.addEventListener("click", () => {
+            if(typeof openDetail === 'function') openDetail(item);
+          });
+          
+          newsContainer.appendChild(card);
+        });
+        console.log("Big News Layout applied successfully.");
+      }
+    };
+  </script>
+
+</body>
+</html>

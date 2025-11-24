@@ -1,0 +1,649 @@
+:root{
+  --bg:#000;
+  --panel:#0f0f0f;
+  --muted:#a6a6a6;
+  --card:#141414;
+  --accent:#fff;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  /* Background for the area OUTSIDE the phone */
+  background-image: url(https://www.vacationhive.com/blog/christmas-destinations-in-the-philippines-top-7-spots-to-visit-and-feel-the-holiday-season/');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family:Inter, "Segoe UI", Arial, sans-serif;
+  color:var(--accent);
+}
+
+.phone-shell{
+  width:480px;
+  height:700px;
+  
+  /* ⭐ 1. REPLACE THE OLD GREY BACKGROUND WITH YOUR IMAGE URL BELOW ⭐ */
+  background-image: url('https://as1.ftcdn.net/jpg/02/06/26/08/1000_F_206260811_oPpBC7feTt2UGzrPYMyt0Z9R8bmUatLF.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Removed the old background color */
+  /* background: rgba(15, 15, 15, 0.55); */
+  
+  backdrop-filter: blur(12px);
+  border-radius:28px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 20px 60px rgba(0,0,0,0.7);
+  position: relative; /* Needed for the overlay */
+}
+
+/* ---- NEW: DARK OVERLAY FOR READABILITY ---- */
+/* This creates a semi-transparent layer over your background image so text is easy to read */
+.phone-shell {
+  width: 380px;
+  height: 560px;
+
+  /* ⭐ 1. IMAGE BACKGROUND (Change this URL to your own image if needed) ⭐ */
+  background-image: url('https://www.vacationhive.com/wp-content/uploads/2021/12/christmas-spots-main-banner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* ⭐ 2. IMPORTANT: This ensures no grey color covers the image ⭐ */
+  background-color: transparent; 
+
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  position: relative; /* Required for the overlay */
+}
+
+/* ---- DARK OVERLAY (Makes text readable over the image) ---- */
+.phone-shell::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* 0.7 = Darker, 0.4 = Lighter */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- ENSURE CONTENT SITS ON TOP OF IMAGE ---- */
+.topbar, .screen, .bottom-nav {
+  position: relative;
+  z-index: 1;
+  background: transparent !important; /* Force transparency so image shows through */
+}
+
+/* Optional: Add a slight blur to the topbar for style */
+.topbar {
+  background: rgba(0, 0, 0, 0.3) !important; /* Semi-transparent header */
+  backdrop-filter: blur(10px);
+}
+.brand{font-weight:700;letter-spacing:1px;}
+.subtitle{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* screen */
+.screen{
+  padding:14px;
+  overflow-y:auto;
+  flex:1;
+  scrollbar-width: none; 
+}
+.screen::-webkit-scrollbar { display: none; }
+
+.page{display:none;}
+.page.active{display:block;}
+h1,h2{margin:0 0 6px 0;}
+.muted{color:var(--muted);font-size:13px;}
+
+/* home cards */
+.home-cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:12px;
+}
+.home-card{
+  background:var(--card);
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+  cursor:pointer;
+  border:1px solid #222;
+}
+.home-card:hover{background:#1a1a1a}
+
+/* cards list (Standard) */
+.cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:22px;
+}
+.card{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  background:var(--card);
+  border-radius:12px;
+  padding:10px;
+  border:1px solid #232323;
+  cursor:pointer;
+  transition:transform .12s ease, background .12s;
+}
+.card:hover{transform:translateY(-3px);background:#1a1a1a;}
+.card .thumb{
+  width:84px;
+  height:64px;
+  border-radius:8px;
+  background-size:cover;
+  background-position:center;
+  flex-shrink:0;
+  border:1px solid #222;
+}
+.card .meta{flex:1}
+.card h3{margin:0;font-size:14px;}
+.card p{margin:6px 0 0 0;color:var(--muted);font-size:12px;}
+
+/* map box */
+.map-box iframe{
+  width:100%;
+  height:360px;
+  border:1px solid #222;
+  border-radius:10px;
+}
+
+/* bottom nav */
+.bottom-nav{
+  display:flex;
+  gap:6px;
+  padding:10px;
+  background:#060606;
+  border-top:1px solid #181818;
+  justify-content:space-around;
+}
+.nav-btn{
+  background:#0c0c0c;
+  border:1px solid #222;
+  color:var(--muted);
+  padding:8px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:10px;
+}
+.nav-btn.active{background:#fff;color:#000;font-weight:700;}
+
+/* modal */
+.modal{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.7);
+  visibility:hidden;
+  opacity:0;
+  transition:opacity .2s ease, visibility .2s;
+  z-index:999;
+  overflow-y: auto;
+}
+.modal.open{visibility:visible;opacity:1;}
+.modal-card{
+  width:100%;
+  max-width:460px;
+  max-height: 90vh;
+  background:#0d0d0d;
+  border-radius:12px;
+  padding:14px;
+  border:1px solid #222;
+  position:relative;
+  color:var(--accent);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #111;
+}
+.modal-card::-webkit-scrollbar { width: 6px; }
+.modal-card::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+.modal-card::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+
+.modal-card img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  border-radius:10px;
+  display:block;
+  margin-bottom:10px;
+  border:1px solid #222;
+}
+.modal-card h2{margin:0 0 8px 0;}
+.modal-card .muted{color:var(--muted);font-size:13px;margin-bottom:10px;}
+.modal-map iframe{
+  width:100%;
+  height:300px;
+  border:1px solid #222;
+  border-radius:8px;
+}
+.close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:#111;
+  color:var(--accent);
+  border:none;
+  padding:6px 8px;
+  border-radius:8px;
+  cursor:pointer;
+  z-index: 10;
+}
+
+/* responsive small screens */
+@media (max-width:420px){
+  .phone-shell{width:94vw;height:92vh}
+}
+
+/* =========================================
+   MUNICIPALITIES (PILL LAYOUT)
+   ========================================= */
+#muni-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 20px;
+}
+
+.muni-card {
+  width: 100%;
+  height: 100px;
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease;
+}
+
+.muni-card:active {
+  transform: scale(0.98);
+}
+
+.muni-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+}
+
+.muni-card span {
+  position: relative;
+  z-index: 2;
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  font-family: 'Inter', sans-serif;
+}
+
+/* =========================================
+   NEW LOGIN DESIGN (Parol Theme) WITH ANIMATION
+   ========================================= */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black; 
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e0/Giant_Lantern_Festival_2012.jpg');
+  background-size: cover;
+  background-position: center;
+  animation: backgroundPulse 10s ease-in-out infinite;
+  z-index: 9999;
+}
+
+@keyframes backgroundPulse {
+  0%, 100% { 
+    filter: brightness(0.8);
+    transform: scale(1);
+  }
+  50% { 
+    filter: brightness(1.1);
+    transform: scale(1.02);
+  }
+}
+
+.login-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.95)); 
+  backdrop-filter: blur(8px);
+  animation: overlayShimmer 5s ease-in-out infinite;
+}
+
+@keyframes overlayShimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.login-frame {
+  position: relative;
+  width: 320px;
+  height: 600px;
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 30px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 
+    0 0 30px rgba(255, 215, 0, 0.3),
+    0 0 60px rgba(255, 215, 0, 0.2),
+    0 20px 40px rgba(0,0,0,0.8);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.6);
+  animation: frameGlow 3s ease-in-out infinite;
+}
+
+@keyframes frameGlow {
+  0%, 100% {
+    border-color: rgba(255, 215, 0, 0.6);
+    box-shadow: 
+      0 0 30px rgba(255, 215, 0, 0.3),
+      0 0 60px rgba(255, 215, 0, 0.2),
+      0 20px 40px rgba(0,0,0,0.8);
+  }
+  50% {
+    border-color: rgba(255, 215, 0, 0.9);
+    box-shadow: 
+      0 0 40px rgba(255, 215, 0, 0.5),
+      0 0 80px rgba(255, 215, 0, 0.3),
+      0 20px 40px rgba(0,0,0,0.8);
+  }
+}
+
+.greeting {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  animation: fadeInDown 1s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  }
+  50% {
+    text-shadow: 2px 2px 15px rgba(255,215,0,0.5);
+  }
+}
+
+/* ⭐ SPINNING PAROL ANIMATION ⭐ */
+.login-icon {
+  position: relative;
+  margin: 20px 0 40px 0;
+}
+
+.login-icon img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: 
+    drop-shadow(0 0 20px rgba(255,255,0,0.8))
+    drop-shadow(0 0 40px rgba(255,215,0,0.6))
+    drop-shadow(0 0 60px rgba(255,165,0,0.4));
+  animation: spinParol 4s linear infinite, parolGlow 2s ease-in-out infinite;
+}
+
+@keyframes spinParol {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes parolGlow {
+  0%, 100% {
+    filter: 
+      drop-shadow(0 0 20px rgba(255,255,0,0.8))
+      drop-shadow(0 0 40px rgba(255,215,0,0.6))
+      drop-shadow(0 0 60px rgba(255,165,0,0.4));
+  }
+  50% {
+    filter: 
+      drop-shadow(0 0 30px rgba(255,255,0,1))
+      drop-shadow(0 0 60px rgba(255,215,0,0.8))
+      drop-shadow(0 0 90px rgba(255,165,0,0.6));
+  }
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 20px;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-group label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.input-group input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 12px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box; 
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 
+    0 0 15px rgba(255, 215, 0, 0.5),
+    inset 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+.button-row {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.btn-outline {
+  flex: 1;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 50px;
+  padding: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 215, 0, 0.9);
+  color: black;
+  border-color: rgba(255, 215, 0, 0.9);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-outline:active {
+  transform: translateY(0);
+}
+
+.forgot-link {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+  color: rgba(255, 215, 0, 0.9);
+}
+
+/* =========================================
+   BIG IMAGE CARDS (Foods & Lodging Layout)
+   ========================================= */
+.big-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 20px;
+}
+
+.big-image-card {
+  width: 100%;
+  height: 280px;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease;
+}
+
+.big-image-card:active {
+  transform: scale(0.98);
+}
+
+.big-image-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+}
+
+.big-image-card span {
+  position: relative;
+  z-index: 2;
+  font-size: 26px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 3px 8px rgba(0,0,0,1);
+  padding: 0 20px;
+  font-family: sans-serif; 
+}
+
+/* City Filter Dropdown */
+.filter-container {
+  margin-bottom: 15px;
+}
+
+.city-filter {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  background: #1a1a1a;
+  color: var(--accent);
+  border: 1px solid #333;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  appearance: none; 
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 18px;
+  cursor: pointer;
+}
+
+.city-filter:focus {
+  outline: none;
+  border-color: var(--accent);
+}
